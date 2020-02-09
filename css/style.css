@@ -9,7 +9,7 @@ body {
 
 @font-face {
   font-family: spider;
-  src: url("../fonts/Spiderfingers.ttf");
+  src: url("../fonts/Nightmare\ 5.ttf");
 }
 
 .image {
@@ -46,8 +46,8 @@ body {
 
 .navbar {
   font-family: nightmare;
-  letter-spacing: 0.4rem;
-  font-size: 5rem;
+  letter-spacing: 0.3rem;
+  font-size: 4rem;
   height: 80px;
   background-color: transparent;
   border: none;
@@ -55,7 +55,7 @@ body {
   z-index: 100;
   -webkit-transition: background-color 1s ease 0s;
   transition: background-color 1s ease 0s;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .navbar-default .navbar-brand {
@@ -152,8 +152,11 @@ body {
 
 #twitch {
   font-family: spider;
-  letter-spacing: 0.3rem;
-  font-size: 10em;
+  letter-spacing: 0.5rem;
+  font-size: 15em;
+  line-height: 15rem;
+
+  color: rgba(255, 0, 0, 0.849);
 
   margin: 0 auto;
   height: 100vh;
@@ -161,19 +164,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  /* -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px); */
 }
 
 #twitch span {
   display: block;
   font-size: .4em;
-  opacity: .8;
+  color: rgba(255, 0, 0, 0.849);
+  /* opacity: .8; */
 }
 
 #twitch div {
   position: absolute;
   margin: 2vh 0;
+  color: rgba(255, 0, 0, 0.849);
   opacity: 0;
   left: 10vw;
   width: 80vw;
@@ -211,21 +216,21 @@ body {
 @keyframes switch {
   0% {
     opacity: 0;
-    filter: blur(3px);
+    /* filter: blur(3px); */
     transform: scale(.95);
     text-shadow: 40px 42px 2px rgba(0, 0, 0, .2)
   }
 
   3% {
     opacity: .7;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(1);
     text-shadow: 40px 42px 2px rgba(0, 0, 0, .1)
   }
 
   6% {
     opacity: .7;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(1);
     color: #fff;
     text-shadow: 40px 42px 2px rgba(0, 0, 0, .1)
@@ -233,7 +238,7 @@ body {
 
   10% {
     opacity: .7;
-    filter: blur(3px);
+    /* filter: blur(3px); */
     transform: scale(1.1);
     color: #000;
     text-shadow: 40px 42px 2px rgba(0, 0, 0, .1)
@@ -241,7 +246,7 @@ body {
 
   10.1% {
     opacity: .8;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(2);
     color: #fff;
     text-shadow: -40px -142px 2px rgba(0, 0, 0, .1)
@@ -249,7 +254,7 @@ body {
 
   10.2% {
     opacity: .8;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(2);
     color: #fff;
     text-shadow: 40px 42px 2px rgba(0, 0, 0, 0, .1)
@@ -257,7 +262,7 @@ body {
 
   11.1% {
     opacity: .8;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(2);
     color: #111;
     ;
@@ -266,7 +271,7 @@ body {
 
   11.2% {
     opacity: .7;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     transform: scale(2);
     color: #fff;
     text-shadow: 90px 52px 2px rgba(0, 0, 0, .1)
@@ -274,7 +279,7 @@ body {
 
   12% {
     opacity: .7;
-    filter: blur(5px);
+    /* filter: blur(5px); */
     transform: scale(1.1);
     color: black;
     text-shadow: 90px 52px 2px rgba(0, 0, 0, 0)
@@ -282,7 +287,7 @@ body {
 
   12.1% {
     opacity: .7;
-    filter: blur(5px);
+    /* filter: blur(5px); */
     transform: scale(1.1);
     color: #000;
     text-shadow: -90px -52px 2px rgba(0, 0, 0, 0)
@@ -290,7 +295,7 @@ body {
 
   13% {
     opacity: 0;
-    filter: blur(3px);
+    /* filter: blur(3px); */
     transform: scale(1);
     color: #000;
     text-shadow: 40px 42px 2px
@@ -298,7 +303,7 @@ body {
 
   12.1% {
     opacity: .7;
-    filter: blur(5px);
+    /* filter: blur(5px); */
     transform: scale(1.1);
     color: #000;
     text-shadow: -90px -52px 2px rgba(0, 0, 0, 0)
