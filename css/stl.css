@@ -20,7 +20,7 @@ body {
   background-attachment: fixed;
 }
 
-.content {
+.contentx {
   display: flex;
   margin: 0 auto;
   justify-content: center;
@@ -107,7 +107,7 @@ p.overview {
 
 .front {
   background-size: cover;
-  padding: 2rem;
+  /* padding: 2rem; */
   font-size: 1.618rem;
   font-weight: 600;
   color: #fff;
@@ -139,7 +139,7 @@ p.overview {
 .back {
   background: #fff;
   transform: rotateY(-180deg);
-  padding: 0 2em;
+  /* padding: 0 2em; */
 }
 
 .card:hover .back {
