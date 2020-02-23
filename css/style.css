@@ -144,6 +144,11 @@ body {
   font-size: 7rem;
 }
 
+.about h2 {
+  font-family: 'Jolly Lodger', cursive;
+  font-size: 5rem;
+}
+
 .about p {
   padding: 20px 80px;
 }
