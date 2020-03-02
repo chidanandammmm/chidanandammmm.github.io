@@ -137,9 +137,11 @@ p.overview {
 }
 
 .back {
-  background: #fff;
+  background-image: url(../images/dark-texture-black-background-260nw-644647063.webp);
+  background-position: 50%;
   transform: rotateY(-180deg);
   /* padding: 0 2em; */
+  color: white;
 }
 
 .card:hover .back {

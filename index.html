@@ -15,6 +15,50 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/stl.css" type="text/css">
   <!-- <link rel="stylesheet" href="./css/card.css"> -->
+  <style>
+    #loading {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: fixed;
+      display: block;
+      opacity: 0.7;
+      background-color: #fff;
+      z-index: 99;
+      text-align: center;
+    }
+
+    #loading-image {
+      position: absolute;
+      top: 100px;
+      left: 240px;
+      z-index: 100;
+    }
+
+    body {
+      color: #fff;
+      font-family: Monospace;
+      font-size: 13px;
+      text-align: center;
+      /* font-weight: bold; */
+
+      background-color: #000;
+      margin: 0px;
+      /* overflow: hidden; */
+    }
+
+    #info {
+      color: #fff;
+      position: absolute;
+      bottom: 20px;
+      padding: 5px 20px;
+      font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+      font-weight: 100;
+      font-size: 18px;
+      background-color: #000;
+    }
+  </style>
 
 </head>
 
@@ -22,6 +66,871 @@
   <!-- partial:index.partial.html -->
 
   <body>
+    <div id="loading">
+      <div id="container"></div>
+      <!-- <div id="info">Click to reload</div> -->
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.js"></script>
+
+
+      <script src="http://kangchen.me/three-js/loaders/OBJLoader.js"></script>
+
+      <script src="http://kangchen.me/three-js/shaders/CopyShader.js"></script>
+      <script src="http://kangchen.me/three-js/shaders/ConvolutionShader.js"></script>
+      <script src="http://kangchen.me/three-js/shaders/FocusShader.js"></script>
+
+      <script src="http://kangchen.me/three-js/postprocessing/EffectComposer.js"></script>
+      <script src="http://kangchen.me/three-js/postprocessing/RenderPass.js"></script>
+
+
+      <script src="http://kangchen.me/three-js/postprocessing/ShaderPass.js"></script>
+
+
+      <script src="http://kangchen.me/three-js/postprocessing/MaskPass.js"></script>
+
+      <script src="http://kangchen.me/three-js/postprocessing/BloomPass.js"></script>
+
+      <script src="https://kang-chen.github.io/three-js/loaders/OBJLoader.js"></script>
+      <script src="https://kang-chen.github.io/three-js/shaders/CopyShader.js"></script>
+      <script src="https://kang-chen.github.io/three-js/shaders/ConvolutionShader.js"></script>
+      <script src="https://kang-chen.github.io/three-js/shaders/FocusShader.js"></script>
+      <script src="https://kang-chen.github.io/three-js/postprocessing/EffectComposer.js"></script>
+      <script src="https://kang-chen.github.io/three-js/postprocessing/RenderPass.js"></script>
+      <script src="https://kang-chen.github.io/three-js/postprocessing/ShaderPass.js"></script>
+      <script src="https://kang-chen.github.io/three-js/postprocessing/MaskPass.js"></script>
+      <script src="https://kang-chen.github.io/three-js/postprocessing/BloomPass.js"></script>
+
+      <script src="js/Detector.js"></script>
+
+      <script>
+        THREE.OBJLoader = function (e) {
+            this.manager = void 0 !== e ? e : THREE.DefaultLoadingManager
+          }, THREE.OBJLoader.prototype = {
+            constructor: THREE.OBJLoader,
+            load: function (e, r, t, i) {
+              var a = this,
+                o = new THREE.XHRLoader(a.manager);
+              o.setCrossOrigin(this.crossOrigin), o.load(e, function (e) {
+                r(a.parse(e))
+              }, t, i)
+            },
+            parse: function (e) {
+              function r(e) {
+                var r = parseInt(e);
+                return 3 * (r >= 0 ? r - 1 : r + E.length / 3)
+              }
+
+              function t(e) {
+                var r = parseInt(e);
+                return 3 * (r >= 0 ? r - 1 : r + f.length / 3)
+              }
+
+              function i(e) {
+                var r = parseInt(e);
+                return 2 * (r >= 0 ? r - 1 : r + u.length / 2)
+              }
+
+              function a(e, r, t) {
+                x.vertices.push(E[e], E[e + 1], E[e + 2], E[r], E[r + 1], E[r + 2], E[t], E[t + 1], E[t + 2])
+              }
+
+              function o(e, r, t) {
+                x.normals.push(f[e], f[e + 1], f[e + 2], f[r], f[r + 1], f[r + 2], f[t], f[t + 1], f[t + 2])
+              }
+
+              function n(e, r, t) {
+                x.uvs.push(u[e], u[e + 1], u[r], u[r + 1], u[t], u[t + 1])
+              }
+
+              function s(e, s, l, d, c, E, f, u, h, m, v, p) {
+                var T = r(e),
+                  R = r(s),
+                  g = r(l);
+                if (void 0 === d ? a(T, R, g) : (a(T, R, H = r(d)), a(R, g, H)), void 0 !== c) {
+                  var T = i(c),
+                    R = i(E),
+                    g = i(f);
+                  void 0 === d ? n(T, R, g) : (n(T, R, H = i(u)), n(R, g, H))
+                }
+                if (void 0 !== h) {
+                  var T = t(h),
+                    R = t(m),
+                    g = t(v);
+                  if (void 0 === d) o(T, R, g);
+                  else {
+                    var H = t(p);
+                    o(T, R, H), o(R, g, H)
+                  }
+                }
+              }
+              console.time("OBJLoader");
+              var l, d, c = [];
+              !1 === /^o /gm.test(e) && (l = {
+                name: "",
+                geometry: x = {
+                  vertices: [],
+                  normals: [],
+                  uvs: []
+                },
+                material: d = {
+                  name: ""
+                }
+              }, c.push(l));
+              for (var E = [], f = [], u = [], h =
+                  /v( +[\d|\.|\+|\-|e|E]+)( +[\d|\.|\+|\-|e|E]+)( +[\d|\.|\+|\-|e|E]+)/, m =
+                  /vn( +[\d|\.|\+|\-|e|E]+)( +[\d|\.|\+|\-|e|E]+)( +[\d|\.|\+|\-|e|E]+)/, v =
+                  /vt( +[\d|\.|\+|\-|e|E]+)( +[\d|\.|\+|\-|e|E]+)/, p =
+                  /f( +-?\d+)( +-?\d+)( +-?\d+)( +-?\d+)?/, T =
+                  /f( +(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+))?/, R =
+                  /f( +(-?\d+)\/(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+)\/(-?\d+))( +(-?\d+)\/(-?\d+)\/(-?\d+))?/,
+                  g =
+                  /f( +(-?\d+)\/\/(-?\d+))( +(-?\d+)\/\/(-?\d+))( +(-?\d+)\/\/(-?\d+))( +(-?\d+)\/\/(-?\d+))?/,
+                  H = e.split("\n"), S = 0; S < H.length; S++) {
+                var C, w = H[S];
+                0 !== (w = w.trim()).length && "#" !== w.charAt(0) && (null !== (C = h.exec(w)) ? E.push(
+                    parseFloat(C[1]), parseFloat(C[2]), parseFloat(C[3])) : null !== (C = m.exec(w)) ? f
+                  .push(parseFloat(C[1]), parseFloat(C[2]), parseFloat(C[3])) : null !== (C = v.exec(w)) ?
+                  u.push(parseFloat(C[1]), parseFloat(C[2])) : null !== (C = p.exec(w)) ? s(C[1], C[2], C[
+                    3], C[4]) : null !== (C = T.exec(w)) ? s(C[2], C[5], C[8], C[11], C[3], C[6], C[9],
+                    C[12]) : null !== (C = R.exec(w)) ? s(C[2], C[6], C[10], C[14], C[3], C[7], C[11], C[
+                    15], C[4], C[8], C[12], C[16]) : null !== (C = g.exec(w)) ? s(C[2], C[5], C[8], C[
+                    11], void 0, void 0, void 0, void 0, C[3], C[6], C[9], C[12]) : /^o /.test(w) ? (
+                    x = {
+                      vertices: [],
+                      normals: [],
+                      uvs: []
+                    }, d = {
+                      name: ""
+                    }, l = {
+                      name: w.substring(2).trim(),
+                      geometry: x,
+                      material: d
+                    }, c.push(l)) : /^g /.test(w) || (/^usemtl /.test(w) ? d.name = w.substring(7).trim() :
+                    /^mtllib /.test(w) || /^s /.test(w)))
+              }
+              for (var y = new THREE.Object3D, S = 0, b = c.length; S < b; S++) {
+                var x = (l = c[S]).geometry,
+                  D = new THREE.BufferGeometry;
+                D.addAttribute("position", new THREE.BufferAttribute(new Float32Array(x.vertices), 3)), x.normals
+                  .length > 0 && D.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(x
+                    .normals), 3)), x.uvs.length > 0 && D.addAttribute("uv", new THREE.BufferAttribute(
+                    new Float32Array(x.uvs), 2)), (d = new THREE.MeshLambertMaterial).name = l.material.name;
+                var B = new THREE.Mesh(D, d);
+                B.name = l.name, y.add(B)
+              }
+              return console.timeEnd("OBJLoader"), y
+            }
+          }, THREE.FocusShader = {
+            uniforms: {
+              tDiffuse: {
+                type: "t",
+                value: null
+              },
+              screenWidth: {
+                type: "f",
+                value: 1024
+              },
+              screenHeight: {
+                type: "f",
+                value: 1024
+              },
+              sampleDistance: {
+                type: "f",
+                value: .94
+              },
+              waveFactor: {
+                type: "f",
+                value: .00125
+              }
+            },
+            vertexShader: ["varying vec2 vUv;", "void main() {", "vUv = uv;",
+              "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"
+            ].join("\n"),
+            fragmentShader: ["uniform float screenWidth;", "uniform float screenHeight;",
+              "uniform float sampleDistance;", "uniform float waveFactor;", "uniform sampler2D tDiffuse;",
+              "varying vec2 vUv;", "void main() {", "vec4 color, org, tmp, add;", "float sample_dist, f;",
+              "vec2 vin;", "vec2 uv = vUv;", "add = color = org = texture2D( tDiffuse, uv );",
+              "vin = ( uv - vec2( 0.5 ) ) * vec2( 1.4 );", "sample_dist = dot( vin, vin ) * 2.0;",
+              "f = ( waveFactor * 100.0 + sample_dist ) * sampleDistance * 4.0;",
+              "vec2 sampleSize = vec2(  1.0 / screenWidth, 1.0 / screenHeight ) * vec2( f );",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( 0.111964, 0.993712 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( 0.846724, 0.532032 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( 0.943883, -0.330279 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( 0.330279, -0.943883 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( -0.532032, -0.846724 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( -0.993712, -0.111964 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;",
+              "add += tmp = texture2D( tDiffuse, uv + vec2( -0.707107, 0.707107 ) * sampleSize );",
+              "if( tmp.b < color.b ) color = tmp;", "color = color * vec4( 2.0 ) - ( add / vec4( 8.0 ) );",
+              "color = color + ( add / vec4( 8.0 ) - color ) * ( vec4( 1.0 ) - vec4( sample_dist * 0.5 ) );",
+              "gl_FragColor = vec4( color.rgb * color.rgb * vec3( 0.95 ) + color.rgb, 1.0 );", "}"
+            ].join("\n")
+          }, THREE.EffectComposer = function (e, r) {
+            if (this.renderer = e, void 0 === r) {
+              var t = window.innerWidth || 1,
+                i = window.innerHeight || 1,
+                a = {
+                  minFilter: THREE.LinearFilter,
+                  magFilter: THREE.LinearFilter,
+                  format: THREE.RGBFormat,
+                  stencilBuffer: !1
+                };
+              r = new THREE.WebGLRenderTarget(t, i, a)
+            }
+            this.renderTarget1 = r, this.renderTarget2 = r.clone(), this.writeBuffer = this.renderTarget1, this
+              .readBuffer = this.renderTarget2, this.passes = [], void 0 === THREE.CopyShader && console.error(
+                "THREE.EffectComposer relies on THREE.CopyShader"), this.copyPass = new THREE.ShaderPass(THREE
+                .CopyShader)
+          }, THREE.EffectComposer.prototype = {
+            swapBuffers: function () {
+              var e = this.readBuffer;
+              this.readBuffer = this.writeBuffer, this.writeBuffer = e
+            },
+            addPass: function (e) {
+              this.passes.push(e)
+            },
+            insertPass: function (e, r) {
+              this.passes.splice(r, 0, e)
+            },
+            render: function (e) {
+              this.writeBuffer = this.renderTarget1, this.readBuffer = this.renderTarget2;
+              var r, t, i = !1,
+                a = this.passes.length;
+              for (t = 0; t < a; t++)
+                if ((r = this.passes[t]).enabled) {
+                  if (r.render(this.renderer, this.writeBuffer, this.readBuffer, e, i), r.needsSwap) {
+                    if (i) {
+                      var o = this.renderer.context;
+                      o.stencilFunc(o.NOTEQUAL, 1, 4294967295), this.copyPass.render(this.renderer, this
+                        .writeBuffer, this.readBuffer, e), o.stencilFunc(o.EQUAL, 1, 4294967295)
+                    }
+                    this.swapBuffers()
+                  }
+                  r instanceof THREE.MaskPass ? i = !0 : r instanceof THREE.ClearMaskPass && (i = !1)
+                }
+            },
+            reset: function (e) {
+              void 0 === e && ((e = this.renderTarget1.clone()).width = window.innerWidth, e.height = window
+                  .innerHeight), this.renderTarget1 = e, this.renderTarget2 = e.clone(), this.writeBuffer =
+                this.renderTarget1, this.readBuffer = this.renderTarget2
+            },
+            setSize: function (e, r) {
+              var t = this.renderTarget1.clone();
+              t.width = e, t.height = r, this.reset(t)
+            }
+          }, THREE.EffectComposer.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), THREE.EffectComposer
+          .quad =
+          new THREE.Mesh(new THREE.PlaneGeometry(2, 2), null), THREE.EffectComposer.scene = new THREE.Scene, THREE
+          .EffectComposer.scene.add(THREE.EffectComposer.quad), THREE.RenderPass = function (e, r, t, i, a) {
+            this.scene = e, this.camera = r, this.overrideMaterial = t, this.clearColor = i, this.clearAlpha =
+              void 0 !==
+              a ? a : 1, this.oldClearColor = new THREE.Color, this.oldClearAlpha = 1, this.enabled = !0, this
+              .clear = !0, this.needsSwap = !1
+          }, THREE.RenderPass.prototype = {
+            render: function (e, r, t, i) {
+              this.scene.overrideMaterial = this.overrideMaterial, this.clearColor && (this.oldClearColor.copy(e
+                  .getClearColor()), this.oldClearAlpha = e.getClearAlpha(), e.setClearColor(this
+                  .clearColor, this.clearAlpha)), e.render(this.scene, this.camera, t, this.clear), this
+                .clearColor && e.setClearColor(this.oldClearColor, this.oldClearAlpha), this.scene
+                .overrideMaterial = null
+            }
+          }, THREE.ShaderPass = function (e, r) {
+            this.textureID = void 0 !== r ? r : "tDiffuse", this.uniforms = THREE.UniformsUtils.clone(e.uniforms),
+              this
+              .material = new THREE.ShaderMaterial({
+                uniforms: this.uniforms,
+                vertexShader: e.vertexShader,
+                fragmentShader: e.fragmentShader
+              }), this.renderToScreen = !1, this.enabled = !0, this.needsSwap = !0, this.clear = !1
+          }, THREE.ShaderPass.prototype = {
+            render: function (e, r, t, i) {
+              this.uniforms[this.textureID] && (this.uniforms[this.textureID].value = t), THREE.EffectComposer.quad
+                .material = this.material, this.renderToScreen ? e.render(THREE.EffectComposer.scene, THREE
+                  .EffectComposer.camera) : e.render(THREE.EffectComposer.scene, THREE.EffectComposer.camera,
+                  r, this.clear)
+            }
+          }, THREE.MaskPass = function (e, r) {
+            this.scene = e, this.camera = r, this.enabled = !0, this.clear = !0, this.needsSwap = !1, this
+              .inverse = !1
+          }, THREE.MaskPass.prototype = {
+            render: function (e, r, t, i) {
+              var a = e.context;
+              a.colorMask(!1, !1, !1, !1), a.depthMask(!1);
+              var o, n;
+              this.inverse ? (o = 0, n = 1) : (o = 1, n = 0), a.enable(a.STENCIL_TEST), a.stencilOp(a.REPLACE, a
+                  .REPLACE, a.REPLACE), a.stencilFunc(a.ALWAYS, o, 4294967295), a.clearStencil(n), e.render(
+                  this.scene, this.camera, t, this.clear), e.render(this.scene, this.camera, r, this.clear), a
+                .colorMask(!0, !0, !0, !0), a.depthMask(!0), a.stencilFunc(a.EQUAL, 1, 4294967295), a.stencilOp(a
+                  .KEEP, a.KEEP, a.KEEP)
+            }
+          }, THREE.ClearMaskPass = function () {
+            this.enabled = !0
+          }, THREE.ClearMaskPass.prototype = {
+            render: function (e, r, t, i) {
+              var a = e.context;
+              a.disable(a.STENCIL_TEST)
+            }
+          }, THREE.BloomPass = function (e, r, t, i) {
+            e = void 0 !== e ? e : 1, r = void 0 !== r ? r : 25, t = void 0 !== t ? t : 4, i = void 0 !== i ? i :
+              256;
+            var a = {
+              minFilter: THREE.LinearFilter,
+              magFilter: THREE.LinearFilter,
+              format: THREE.RGBFormat
+            };
+            this.renderTargetX = new THREE.WebGLRenderTarget(i, i, a), this.renderTargetY = new THREE
+              .WebGLRenderTarget(
+                i, i, a), void 0 === THREE.CopyShader && console.error("THREE.BloomPass relies on THREE.CopyShader");
+            var o = THREE.CopyShader;
+            this.copyUniforms = THREE.UniformsUtils.clone(o.uniforms), this.copyUniforms.opacity.value = e, this
+              .materialCopy = new THREE.ShaderMaterial({
+                uniforms: this.copyUniforms,
+                vertexShader: o.vertexShader,
+                fragmentShader: o.fragmentShader,
+                blending: THREE.AdditiveBlending,
+                transparent: !0
+              }), void 0 === THREE.ConvolutionShader && console.error(
+                "THREE.BloomPass relies on THREE.ConvolutionShader");
+            var n = THREE.ConvolutionShader;
+            this.convolutionUniforms = THREE.UniformsUtils.clone(n.uniforms), this.convolutionUniforms
+              .uImageIncrement
+              .value = THREE.BloomPass.blurX, this.convolutionUniforms.cKernel.value = THREE.ConvolutionShader
+              .buildKernel(t), this.materialConvolution = new THREE.ShaderMaterial({
+                uniforms: this.convolutionUniforms,
+                vertexShader: n.vertexShader,
+                fragmentShader: n.fragmentShader,
+                defines: {
+                  KERNEL_SIZE_FLOAT: r.toFixed(1),
+                  KERNEL_SIZE_INT: r.toFixed(0)
+                }
+              }), this.enabled = !0, this.needsSwap = !1, this.clear = !1, this.camera = new THREE
+              .OrthographicCamera(-
+                1, 1, 1, -1, 0, 1), this.scene = new THREE.Scene, this.quad = new THREE.Mesh(new THREE
+                .PlaneBufferGeometry(2, 2), null), this.scene.add(this.quad)
+          }, THREE.BloomPass.prototype = {
+            render: function (e, r, t, i, a) {
+              a && e.context.disable(e.context.STENCIL_TEST), this.quad.material = this.materialConvolution, this
+                .convolutionUniforms.tDiffuse.value = t, this.convolutionUniforms.uImageIncrement.value = THREE
+                .BloomPass.blurX, e.render(this.scene, this.camera, this.renderTargetX, !0), this
+                .convolutionUniforms.tDiffuse.value = this.renderTargetX, this.convolutionUniforms
+                .uImageIncrement.value = THREE.BloomPass.blurY, e.render(this.scene, this.camera, this
+                  .renderTargetY, !0), this.quad.material = this.materialCopy, this.copyUniforms.tDiffuse
+                .value = this.renderTargetY, a && e.context.enable(e.context.STENCIL_TEST), e.render(this.scene,
+                  this.camera, t, this.clear)
+            }
+          }, THREE.BloomPass.blurX = new THREE.Vector2(.001953125, 0), THREE.BloomPass.blurY = new THREE.Vector2(0,
+            .001953125), THREE.CopyShader = {
+            uniforms: {
+              tDiffuse: {
+                type: "t",
+                value: null
+              },
+              opacity: {
+                type: "f",
+                value: 1
+              }
+            },
+            vertexShader: ["varying vec2 vUv;", "void main() {", "vUv = uv;",
+              "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"
+            ].join("\n"),
+            fragmentShader: ["uniform float opacity;", "uniform sampler2D tDiffuse;", "varying vec2 vUv;",
+              "void main() {", "vec4 texel = texture2D( tDiffuse, vUv );", "gl_FragColor = opacity * texel;", "}"
+            ].join("\n")
+          }, THREE.ConvolutionShader = {
+            defines: {
+              KERNEL_SIZE_FLOAT: "25.0",
+              KERNEL_SIZE_INT: "25"
+            },
+            uniforms: {
+              tDiffuse: {
+                type: "t",
+                value: null
+              },
+              uImageIncrement: {
+                type: "v2",
+                value: new THREE.Vector2(.001953125, 0)
+              },
+              cKernel: {
+                type: "fv1",
+                value: []
+              }
+            },
+            vertexShader: ["uniform vec2 uImageIncrement;", "varying vec2 vUv;", "void main() {",
+              "vUv = uv - ( ( KERNEL_SIZE_FLOAT - 1.0 ) / 2.0 ) * uImageIncrement;",
+              "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );", "}"
+            ].join("\n"),
+            fragmentShader: ["uniform float cKernel[ KERNEL_SIZE_INT ];", "uniform sampler2D tDiffuse;",
+              "uniform vec2 uImageIncrement;", "varying vec2 vUv;", "void main() {", "vec2 imageCoord = vUv;",
+              "vec4 sum = vec4( 0.0, 0.0, 0.0, 0.0 );", "for( int i = 0; i < KERNEL_SIZE_INT; i ++ ) {",
+              "sum += texture2D( tDiffuse, imageCoord ) * cKernel[ i ];", "imageCoord += uImageIncrement;", "}",
+              "gl_FragColor = sum;", "}"
+            ].join("\n"),
+            buildKernel: function (e) {
+              var r, t, i, a, o = 2 * Math.ceil(3 * e) + 1;
+              for (o > 25 && (o = 25), a = .5 * (o - 1), t = new Array(o), i = 0, r = 0; r < o; ++r) t[r] =
+                function (e, r) {
+                  return Math.exp(-e * e / (2 * r * r))
+                }(r - a, e), i += t[r];
+              for (r = 0; r < o; ++r) t[r] /= i;
+              return t
+            }
+          };
+        var SCREEN_HEIGHT = window.innerHeight;
+        var SCREEN_WIDTH = window.innerWidth;
+
+        var container;
+
+        var camera, scene, renderer, mesh, directionalLight;
+
+        var parent, meshes = [],
+          clonemeshes = [];
+
+        var p;
+
+        var aloader, bloader;
+
+        var composer, effectFocus;
+
+        var controls;
+
+        var clock = new THREE.Clock();
+
+        init();
+        animate();
+
+        function init() {
+
+          container = document.getElementById('container');
+
+          camera = new THREE.PerspectiveCamera(20, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 50000);
+          // very far
+
+          camera.position.set(-2000, 1000, 1000);
+          camera.position.set(-5000, 5000, 5000);
+          camera.position.set(-150, 200, 80);
+
+          scene = new THREE.Scene();
+          scene.fog = new THREE.FogExp2(0x000104, 0.00675);
+          scene.fog = new THREE.FogExp2(0x000000, 0.0000675);
+
+          camera.lookAt(scene.position);
+
+
+          aloader = new THREE.JSONLoader();
+          aloader.load("https://cors-anywhere.herokuapp.com/https://kang-chen.github.io/js/skull-trimmed.js",
+            function (
+              geometry, materials) {
+              createMesh(geometry, scene, -8, -2, -8, 16, 0xffffff, true);
+              // console.log("checking out craneo geomtry", geometry);
+            });
+
+
+          renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+          });
+          renderer.setClearColor(0x000000, 1);
+          // renderer.setClearColor( scene.fog.color );
+          renderer.setPixelRatio(window.devicePixelRatio);
+          renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+          renderer.autoClear = false;
+          renderer.sortObjects = false;
+          container.appendChild(renderer.domElement);
+
+
+          parent = new THREE.Object3D();
+          scene.add(parent);
+
+          directionalLight = new THREE.DirectionalLight(0xffffff);
+          directionalLight.position.set(11, 1, 1);
+          directionalLight.intensity = 10;
+          parent.add(directionalLight);
+
+          var grid = new THREE.Points(new THREE.PlaneBufferGeometry(15000, 15000, 64, 64), new THREE.PointsMaterial({
+            color: 0xff0000,
+            size: 10
+          }));
+          grid.position.y = -400;
+          // grid.position.y = 0;
+          grid.rotation.x = -Math.PI / 2;
+          // parent.add( grid );
+          // postprocessing
+
+          var renderModel = new THREE.RenderPass(scene, camera);
+
+          var effectBloom = new THREE.BloomPass(0.5);
+          // var effectFilm = new THREE.FilmPass( 0.5, 0.5, 1448, false );
+
+          effectFocus = new THREE.ShaderPass(THREE.FocusShader);
+
+          effectFocus.uniforms["screenWidth"].value = window.innerWidth;
+          effectFocus.uniforms["screenHeight"].value = window.innerHeight;
+          effectFocus.uniforms["sampleDistance"].value = 0.05;
+
+          console.log("EFFECT FOCUS", effectFocus);
+          effectFocus.enabled = true;
+          effectFocus.renderToScreen = true;
+
+          composer = new THREE.EffectComposer(renderer);
+
+          composer.addPass(renderModel);
+          composer.addPass(effectBloom);
+          // composer.addPass( effectFilm );
+          composer.addPass(effectFocus);
+
+          window.addEventListener('resize', onWindowResize, false);
+          renderer.domElement.addEventListener('click',
+            function () {
+              window.location = window.location.href;
+            },
+            false
+          );
+        }
+
+
+        // function reloader( event ) {
+        //
+        // 	location.reload();
+        //
+        // }
+
+        function onWindowResize(event) {
+
+          renderer.setSize(window.innerWidth, window.innerHeight);
+
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+
+          camera.lookAt(scene.position);
+
+          composer.reset();
+
+          // effectFocus.uniforms[ "screenWidth" ].value = window.innerWidth ;
+          // effectFocus.uniforms[ "screenHeight" ].value = window.innerHeight ;
+
+
+        }
+
+        //
+
+        function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
+          // console.log("originalGeometry", originalGeometry);
+          // console.log("originalGeometry vertices", originalGeometry.vertices);
+          var i, c;
+
+          var vertices = originalGeometry.vertices;
+          var vl = vertices.length;
+
+          var geometry = new THREE.Geometry();
+          var vertices_tmp = [];
+
+          for (i = 0; i < vl; i++) {
+
+            p = vertices[i];
+
+            geometry.vertices[i] = p.clone();
+            vertices_tmp[i] = [p.x, p.y, p.z, 0, 0];
+
+          }
+          //
+          // var clones = [
+          // 	[  6000, 0, -4000 ],
+          // 	[  5000, 0, 0 ],
+          // 	[  1000, 0, 5000 ],
+          // 	[  1000, 0, -5000 ],
+          // 	[  4000, 0, 2000 ],
+          // 	[ -4000, 0, 1000 ],
+          // 	[ -5000, 0, -5000 ],
+          //
+          // 	[ 0, 0, 0 ]
+          //
+          // ];
+
+          var clones = [
+            [0, 0, 0]
+          ];
+
+
+          if (dynamic) {
+
+            for (i = 0; i < clones.length; i++) {
+
+              c = (i < clones.length - 1) ? 0x252525 : color;
+
+              mesh = new THREE.Points(geometry, new THREE.PointsMaterial({
+                size: 0.75,
+                color: c
+              }));
+              mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
+              // mesh.scale.x = mesh.scale.y = mesh.scale.z = 5;
+
+              mesh.position.x = x + clones[i][0];
+              mesh.position.y = y + clones[i][1];
+              mesh.position.z = z + clones[i][2];
+
+              // mesh.position.x = x;
+              // mesh.position.y = y;
+              // mesh.position.z = z;
+
+              parent.add(mesh);
+
+              clonemeshes.push({
+                mesh: mesh,
+                speed: 0.5 + Math.random()
+              });
+
+            }
+
+          } else {
+
+            mesh = new THREE.Points(geometry, new THREE.PointsMaterial({
+              size: 0.75,
+              color: color
+            }));
+            // mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
+            mesh.scale.x = mesh.scale.y = mesh.scale.z = 5;
+
+            mesh.position.x = x;
+            mesh.position.y = y;
+            mesh.position.z = z;
+
+            parent.add(mesh);
+
+          }
+
+          // I assume start param is where the mesh begins to fill with particles, DE
+          meshes.push({
+            mesh: mesh,
+            vertices: geometry.vertices,
+            vertices_tmp: vertices_tmp,
+            vl: vl,
+            down: 0,
+            up: 0,
+            direction: 10,
+            speed: 199,
+            delay: Math.floor(50 + 50 * Math.random()),
+            // started: false, start: Math.floor( -200 + -200 * Math.random() ),
+            started: false,
+            start: Math.floor(0.1 * Math.random()),
+            dynamic: dynamic
+          });
+
+        }
+
+        var j, jl, cm, data, vertices, vertices_tmp, vl, d, vt;
+
+        function animate() {
+
+          requestAnimationFrame(animate);
+          render();
+
+        }
+
+        function update() {
+          if (keyboard.pressed("z")) {
+            // do something
+          }
+
+          controls.update();
+          stats.update();
+
+          var t = clock.getElapsedTime();
+          customUniforms.time.value = t;
+
+          // uniforms.delta.value += 0.1;
+        }
+
+        function render() {
+
+          delta = 3 * clock.getDelta();
+
+          delta = delta < 2 ? delta : 2;
+
+          // parent.rotation.y += -0.02 * delta;
+
+          for (j = 0, jl = clonemeshes.length; j < jl; j++) {
+
+
+            cm = clonemeshes[j];
+            // cm.mesh.rotation.y += -0.05 * delta * cm.speed;
+
+            cm.mesh.rotation.z += 0.03 * delta * cm.speed;
+            cm.mesh.rotation.x = 1;
+            // cm.mesh.rotation.x += 0.04 * delta * cm.speed;
+
+          }
+
+          for (j = 0, jl = meshes.length; j < jl; j++) {
+
+            data = meshes[j];
+
+            mesh = data.mesh;
+            vertices = data.vertices;
+            vertices_tmp = data.vertices_tmp;
+            vl = data.vl;
+
+            if (!data.dynamic) continue;
+
+            if (data.start > 0) {
+
+              data.start -= 1;
+
+            } else {
+
+              if (!data.started) {
+
+                data.direction = -1;
+                data.started = true;
+
+              }
+
+            }
+
+            for (i = 0; i < vl; i++) {
+
+              p = vertices[i];
+              vt = vertices_tmp[i];
+
+              // falling down
+
+              if (data.direction < 0) {
+
+                var d = Math.abs(p.x - vertices_tmp[i][0]) + Math.abs(p.y - vertices_tmp[i][1]) + Math.abs(p.z -
+                  vertices_tmp[i][2]);
+                // if ( d < 200 ) {
+
+                // THIS COntrols how come of the model is showing before particle recombine
+                if (p.y > -4) {
+
+                  // this controls where particles originate fromq
+                  p.x += 2.5 * (0.50 - Math.random()) * data.speed * delta;
+                  p.y += 5.0 * (0.25 - Math.random()) * data.speed * delta;
+                  p.z += 2.5 * (0.50 - Math.random()) * data.speed * delta;
+
+                  // p.x += 0.3 * ( 0.50 - Math.random() ) * data.speed * delta;
+                  // p.y += 0.3 * ( 0.25 - Math.random() ) * data.speed * delta;
+                  // p.z += 0.5 * ( 0.50 - Math.random() ) * data.speed * delta;
+
+                } else {
+
+                  if (!vt[3]) {
+
+                    vt[3] = 1;
+                    data.down += 1;
+
+                  }
+
+                }
+
+              }
+
+              // rising up
+
+              if (data.direction > 0) {
+
+                //if ( p.y < vertices_tmp[ i ][ 1 ] ) {
+                //	p.y += data.direction * data.speed * delta;
+
+                // d = Math.abs( p.x - vt[ 0 ] ) + Math.abs( p.y - vt[ 1 ] ) + Math.abs( p.z - vt[ 2 ] );
+
+                d = Math.abs(vt[0]) + Math.abs(vt[1]) + Math.abs(vt[2]);
+
+                if (d > 1) {
+
+                  p.x += -(p.x - vt[0]) / d * data.speed * delta * (0.85 - Math.random());
+                  p.y += -(p.y - vt[1]) / d * data.speed * delta * (1 + Math.random());
+                  p.z += -(p.z - vt[2]) / d * data.speed * delta * (0.85 - Math.random());
+
+                  // p.x =  vt[ 0 ];
+                  // p.y =  vt[ 1 ];
+                  // p.z =  vt[ 2 ];
+                  // p.x += - ( vt[ 0 ] ) / d * data.speed * delta * ( 0.85 - Math.random() );
+                  // p.y += - ( vt[ 1 ] ) / d * data.speed * delta * ( 1 + Math.random() );
+                  // p.z += - ( vt[ 2 ] ) / d * data.speed * delta * ( 0.85 - Math.random() );
+
+                } else {
+
+                  if (!vt[4]) {
+
+                    vt[4] = 1;
+                    data.up += 1;
+
+                  }
+
+                }
+
+              }
+
+
+            }
+
+            // all down
+
+            if (data.down === vl) {
+
+              if (data.delay === 0) {
+
+                data.direction = 1;
+                data.speed = 10;
+                data.down = 0;
+                data.delay = 120;
+
+                for (i = 0; i < vl; i++) {
+
+                  vertices_tmp[i][3] = 0;
+
+                }
+
+              } else {
+
+                data.delay -= 1;
+
+              }
+
+
+            }
+
+            // all up
+
+            if (data.up === vl) {
+
+              if (data.delay === 0) {
+
+                data.direction = -1;
+                data.speed = 35;
+                data.up = 0;
+                data.delay = 120;
+
+                for (i = 0; i < vl; i++) {
+
+                  vertices_tmp[i][4] = 0;
+
+                }
+
+              } else {
+
+                data.delay -= 1;
+
+              }
+
+
+            }
+
+            mesh.geometry.verticesNeedUpdate = true;
+          }
+
+          renderer.clear();
+          composer.render(0.1);
+          // parent.render( 0.01 );
+
+        }
+      </script>
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -215,6 +1124,48 @@
                   A thrilling challenge based on academics and competition.Show the best of production engineering in
                   you !
                 </p>
+                <!-- <button class="button">Click Here</button> -->
+              </div>
+            </div>
+          </a>
+        </div>
+        <h2 style="color: red;">Fun Events</h2>
+        <div class="contentx">
+          <a class="card" href="#!">
+            <!-- specify background image in the inline style tag -->
+            <div class="front"
+              style="background-image: url(./images/events/mystry_room.jpg);font-size: 4rem;background-size: 500px 500px;">
+              <p>Mystery Rooms</p>
+            </div>
+            <div class="back">
+              <div>
+                <div style="overflow-y: auto; padding: 5%;">
+                  A nostalgic puzzle, advancing the theif and cop game from childhood where you crack clues and join
+                  them to solve
+                  mysterious crime scenes.
+                  Join in and bring out the Sherlock in you.Brush up mind and sharpen your IQ,cause Mr Holmes,this is
+                  your business to
+                  know what people don't know !
+                </div>
+                <!-- <button class="button">Click Here</button> -->
+              </div>
+            </div>
+          </a>
+          <a class="card" href="#!">
+            <!-- specify background image in the inline style tag -->
+            <div class="front"
+              style="background-image: url(./images/events/improve-marketing-skills-og.png);font-size: 4rem;background-size: 500px 500px;">
+              <p>MAD ADs</p>
+            </div>
+            <div class="back">
+              <div>
+                <div style="overflow-y: auto; padding: 5%;">
+                  A challenge for creative minds. Advertise products that may or may not be so cool to sell.Make the
+                  best advertisement
+                  for products that you ll definetely enjoy to sell.
+                  Assured fun and chance to learn sales and marketing.The most creative one wins over others.Be this one
+                  !
+                </div>
                 <!-- <button class="button">Click Here</button> -->
               </div>
             </div>
@@ -477,6 +1428,12 @@
     <script src="./js/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./js/jquery-easing/jquery.easing.min.js"></script>
     <script src="./js/scrolling-nav.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $(window).load(function () {
+        $('#loading').hide();
+      });
+    </script>
 
   </body>
 
