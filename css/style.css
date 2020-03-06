@@ -12,6 +12,11 @@ body {
   src: url("../fonts/Nightmare\ 5.ttf");
 }
 
+@font-face {
+  font-family: spiderx;
+  src: url("../fonts/Spiderfingers.ttf");
+}
+
 .image {
   background-color: #490D40;
   /* background: url(https://sonorangirl.github.io/Earth-Quotes/img/google-earth-view-South-Iceland3.jpg) no-repeat center center; */

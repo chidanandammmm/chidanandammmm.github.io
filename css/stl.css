@@ -208,3 +208,6 @@ p.overview {
 }
 
 /*# sourceMappingURL=stl.css.map */
+.front p {
+  line-height: 4rem;
+}
