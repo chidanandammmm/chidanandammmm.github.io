@@ -1164,7 +1164,7 @@
         <!-- <li><a class="js-scroll-trigger navbar-link" href="#schedule">Schedule</a></li> -->
         <!-- <li><a class="js-scroll-trigger navbar-link" href="#sponsors">Sponsors</a></li> -->
         <li><a class="js-scroll-trigger navbar-link" href="#team">Team</a></li>
-        <!-- <li><a class="js-scroll-trigger navbar-link" href="#register">Register</a></li> -->
+        <li><a class="js-scroll-trigger navbar-link" href="#register">Register</a></li>
         <li><a class="js-scroll-trigger navbar-link" href="#contact">Contact Us</a></li>
       </ul>
     </div>
@@ -1394,6 +1394,23 @@
             </div>
           </div>
         </a>
+        <a class="card" href="#!">
+          <!-- specify background image in the inline style tag -->
+          <div class="front"
+            style="background-image: url(./images/events/tug.jpeg);font-size: 4rem;background-size: 500px 500px;">
+            <p>Tug of war</p>
+          </div>
+          <div class="back">
+            <div>
+              <p>
+                Why to fight when you can pull and win.Drag the other teams to your side of central line.Bring in your
+                team of six and
+                hold the rope tight till your enemy falls.
+              </p>
+              <!-- <button class="button">Click Here</button> -->
+            </div>
+          </div>
+        </a>
       </div>
       <h2 style="color: red;">Workshop</h2>
       <div class="contentx">
@@ -1460,6 +1477,13 @@
         </a>
       </div>
       <!-- </section> -->
+    </div>
+  </section>
+
+  <section id="register">
+    <div class="about" style="padding-bottom: 5%;">
+      <h1>Registration</h1>
+      <h2>Coming Soon</h2>
     </div>
   </section>
 
@@ -1629,7 +1653,7 @@
   </section>
   <br><br>
 
-  <section id="contact">
+  <section id="contact" style="color: white;">
     <div class="container">
       <div class="row">
         <div class="col-md-4" style="font-size: 2rem;">
@@ -1680,6 +1704,7 @@
     $('#events').hide();
     $('#team').hide();
     $('#contact').hide();
+    $('#register').hide();
     $('nav').hide();
     $(window).load(setTimeout(function () {
       $('#loading').hide();
@@ -1688,6 +1713,7 @@
       $('#events').show();
       $('#team').show();
       $('#contact').show();
+      $('#register').show();
       $('nav').show();
     }, 5000));
   </script>
